@@ -1,0 +1,45 @@
+.timeline {
+    position: relative;
+    padding-left: 3rem;
+}
+
+/* The vertical line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #dee2e6;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -2.8rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 2;
+}
+
+.timeline-item.active .timeline-content h6 {
+    color: #0d6efd;
+}
+
+.bg-secondary {
+    background-color: #adb5bd !important;
+}
+
+.italic {
+    font-style: italic;
+}
