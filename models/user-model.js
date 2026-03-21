@@ -1,11 +1,32 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/iet_hackathon');
-
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    phone: String,
-    location: String,
-    password: String
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+    },
+    phone: {
+        type: String,
+        trim: true
+    },
+    location: {
+        type: String,
+        trim: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
 });
+
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);
