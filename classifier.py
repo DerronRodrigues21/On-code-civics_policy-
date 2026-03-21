@@ -7,7 +7,7 @@ load_dotenv()
 
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1"  # changed
+    base_url="https://api.groq.com/openai/v1" 
 )
 
 SYSTEM_PROMPT = """
@@ -47,7 +47,7 @@ def classify_complaint(complaint: str) -> dict:
 
     raw = response.choices[0].message.content.strip()
     
-    # If deepseek returns a markdown response - then hoe to handle it
+    # If groq returns a markdown response - then hoe to handle it
     if raw.startswith("```"):
         raw = raw.split("```")[1]
         if raw.startswith("json"):
