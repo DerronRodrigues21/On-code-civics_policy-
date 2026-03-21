@@ -27,5 +27,6 @@ async def classify(req: ComplaintRequest):
         result = classify_complaint(req.complaint)
         # **result unpacks the dict
         return ComplaintResponse(complaint=req.complaint, **result)
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
