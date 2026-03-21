@@ -33,14 +33,14 @@
                         <label class="btn btn-outline-primary" for="roleOfficial">Official</label>
                     </div>
 
-                    <form id="signupForm">
+                    <form id="signupForm" method="post" action="/signup">
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="userName" placeholder="Jahan" required>
+                            <input type="text" class="form-control" id="userName" placeholder="Full Name" required name="name">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="userEmail" placeholder="name@example.com" required>
+                            <input type="email" class="form-control" id="userEmail" placeholder="name@example.com" required name="email">
                         </div>
                         <!-- <div class="mb-3">
                             <label class="form-label">Phone Number</label>
@@ -48,11 +48,11 @@
                         </div> -->
                         <div class="mb-3" id="deptField" style="display: none;">
                             <label class="form-label">Department ID</label>
-                            <input type="text" class="form-control" id="deptId" placeholder="e.g. WATER_DEPT_01">
+                            <input type="text" class="form-control" id="deptId" placeholder="e.g. WATER_DEPT_01" name="deptId">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" id="userPass" required>
+                            <input type="password" class="form-control" id="userPass" required name="password">
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Sign Up</button>
                     </form>
