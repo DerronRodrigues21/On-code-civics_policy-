@@ -7,6 +7,9 @@ const path = require('path');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const Complaint = require('./models/complaint-model');
+const User = require('./models/user-model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -93,5 +96,34 @@ const startServer = async () => {
         process.exit(1);
     }
 };
+
+app.post('/signup', async (req, res) => {
+    const { name, email, password, role } = req.body;
+    try {
+        const existing = await User.findOne({ email });
+        if (existing) return res.status(400).json({ error: 'Email already registered' });
+        const user = await User.create({ name, email, password, role });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.cookie('token', token, { httpOnly: true });
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) return res.status(401).json({ error: 'Invalid credentials' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.cookie('token', token, { httpOnly: true });
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 startServer();
