@@ -19,12 +19,12 @@
                     <p class="text-muted small">Login to manage your civic reports</p>
                 </div>
                 
-                <form id="loginForm">
+                <form id="loginForm" method="post" action="/login">
                     <div class="mb-3">
                         <label class="form-label text-secondary small fw-bold">Email Address</label>
                         <div class="input-group">
                             <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-envelope text-muted"></i></span>
-                            <input type="email" class="form-control border-start-0" id="loginEmail" placeholder="name@example.com" required>
+                            <input type="email" class="form-control border-start-0" id="loginEmail" placeholder="name@example.com" required name="email">
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                         <label class="form-label text-secondary small fw-bold">Password</label>
                         <div class="input-group">
                             <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-lock text-muted"></i></span>
-                            <input type="password" class="form-control border-start-0" id="loginPass" placeholder="••••••••" required>
+                            <input type="password" class="form-control border-start-0" id="loginPass" placeholder="••••••••" required name="password">
                         </div>
                     </div>
 

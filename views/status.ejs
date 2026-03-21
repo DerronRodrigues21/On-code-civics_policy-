@@ -20,19 +20,29 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
                 <div class="card shadow-sm border-0 mb-4 p-4 text-center">
-                    <span class="badge bg-primary mb-2 mx-auto" style="width: fit-content;">Ticket #CIV9842</span>
-                    <h2 class="fw-bold">Broken Streetlight</h2>
-                    <p class="text-muted">Reported on Oct 24, 2024 • Location: Sector 5, Zone B</p>
+                    <h2 class="fw-bold"><%= result.summary %></h2>
+                    <p class="text-muted">Reported just now</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <span class="badge bg-info text-dark"><i class="fas fa-bolt me-1"></i> Electricity Dept</span>
-                        <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle me-1"></i> Medium Priority</span>
+                        <span class="badge bg-info text-dark">
+                            <i class="fas fa-building me-1"></i> <%= result.department %>
+                        </span>
+                        <span class="badge bg-warning text-dark">
+                            <i class="fas fa-exclamation-triangle me-1"></i> <%= result.priority %> Priority
+                        </span>
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-tag me-1"></i> <%= result.category %>
+                        </span>
                     </div>
                 </div>
 
                 <div class="card shadow-sm border-0 mb-4 p-3 border-start border-primary border-5">
-                    <h6 class="fw-bold text-primary"><i class="fas fa-robot me-2"></i> AI Action Summary</h6>
-                    <p class="mb-0 italic small">"The issue was automatically categorized as an electrical failure and routed to the Junior Engineer for Sector 5."</p>
+                    <h6 class="fw-bold text-primary"><i class="fas fa-robot me-2"></i>AI Action Summary</h6>
+                    <p class="mb-0 small fst-italic">
+                        "The issue was automatically categorized as <strong><%= result.category %></strong> 
+                        and routed to the <strong><%= result.department %></strong>."
+                    </p>
                 </div>
 
                 <div class="card shadow-sm border-0 p-4 mb-5">
@@ -42,21 +52,21 @@
                             <div class="timeline-icon bg-success"><i class="fas fa-check"></i></div>
                             <div class="timeline-content">
                                 <h6 class="fw-bold">Complaint Submitted</h6>
-                                <p class="text-muted small">Oct 24, 10:00 AM</p>
+                                <p class="text-muted small"><%= new Date().toLocaleString() %></p>
                             </div>
                         </div>
                         <div class="timeline-item active">
                             <div class="timeline-icon bg-success"><i class="fas fa-robot"></i></div>
                             <div class="timeline-content">
-                                <h6 class="fw-bold">AI Categorized: Electricity</h6>
-                                <p class="text-muted small">Oct 24, 10:01 AM</p>
+                                <h6 class="fw-bold">AI Categorized: <%= result.category %></h6>
+                                <p class="text-muted small"><%= new Date().toLocaleString() %></p>
                             </div>
                         </div>
-                        <div class="timeline-item active">
-                            <div class="timeline-icon bg-primary"><i class="fas fa-user-cog"></i></div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-secondary"><i class="fas fa-user-cog"></i></div>
                             <div class="timeline-content">
-                                <h6 class="fw-bold">Assigned to Field Engineer</h6>
-                                <p class="text-muted small">Oct 24, 02:30 PM</p>
+                                <h6 class="fw-bold">Assigned to <%= result.department %></h6>
+                                <p class="text-muted small">Pending</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -68,6 +78,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
