@@ -16,7 +16,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-fetch('/api/complaints')
+fetch('/api/complaints?t=' + Date.now())
     .then(res => res.json())
     .then(complaints => {
         if (complaints.length === 0) { console.log('No complaints yet'); return; }
