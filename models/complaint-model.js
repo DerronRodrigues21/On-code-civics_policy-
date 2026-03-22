@@ -1,36 +1,45 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
-    name: {
+const complaintSchema = new mongoose.Schema({
+    complaint: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
+    department: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    category: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    priority: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    summary: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    lat: {
+        type: Number,
+        required: true
+    },
+    lng: {
+        type: Number,
+        required: true
+    },
+    ticketId: {
         type: String,
         required: true,
         unique: true,
-        lowercase: true,
         trim: true
-    },
-    phone: {
-        type: String,
-        trim: true
-    },
-    location: {
-        type: String,
-        trim: true
-    },
-    password: {
-        type: String,
-        required: true
     }
 }, { timestamps: true });
 
-userSchema.pre('save', async function() {
-    if (!this.isModified('password')) return;
-    this.password = await bcrypt.hash(this.password, 10);
-});
-
-module.exports = mongoose.models.User || mongoose.model('User', userSchema);
+module.exports = mongoose.models.Complaint || mongoose.model('Complaint', complaintSchema);
