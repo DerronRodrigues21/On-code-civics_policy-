@@ -1,8 +1,16 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from classifier import classify_complaint
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class ComplaintRequest(BaseModel):
     complaint: str
@@ -22,10 +30,8 @@ def root():
 async def classify(req: ComplaintRequest):
     if not req.complaint.strip():
         raise HTTPException(status_code=400, detail="Complaint text is empty")
-    
     try:
         result = classify_complaint(req.complaint)
-        # **result unpacks the dict
         return ComplaintResponse(complaint=req.complaint, **result)
 
     except Exception as e:

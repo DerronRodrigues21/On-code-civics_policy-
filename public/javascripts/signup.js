@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleLink = document.getElementById('toggleLink');
     const signupForm = document.getElementById('signupForm');
 
-    let isLoginMode = false;
-
     // Toggle Department ID field based on Role
     roleOfficial.addEventListener('change', () => {
         deptField.style.display = 'block';
@@ -20,35 +18,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle between Signup and Login Mode
     toggleLink.addEventListener('click', (e) => {
         e.preventDefault();
-        isLoginMode = !isLoginMode;
-
-        if (isLoginMode) {
-            authTitle.innerText = "Login";
-            document.getElementById('userName').parentElement.style.display = 'none';
-            toggleLink.innerText = "Create an account";
-            signupForm.querySelector('button').innerText = "Login";
-        } else {
-            authTitle.innerText = "Create Account";
-            document.getElementById('userName').parentElement.style.display = 'block';
-            toggleLink.innerText = "Login here";
-            signupForm.querySelector('button').innerText = "Sign Up";
-        }
+        // just redirect to login page
+        window.location.href = '/login';
     });
 
-    // Form Submission Logic
-    signupForm.addEventListener('submit', (e) => {
+    // Form Submission
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const email = document.getElementById('userEmail').value;
-        const role = roleOfficial.checked ? "Official" : "Citizen";
+        const role = roleOfficial.checked ? 'official' : 'citizen';
 
-        // Logic: Redirect based on role
-        alert(`Welcome, ${email}! Logged in as ${role}.`);
-        
-        if (role === "Official") {
-            window.location.href = "admin.html"; // Redirect to Admin Dashboard
+        const res = await fetch('/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name:     document.getElementById('userName').value,
+                email:    document.getElementById('userEmail').value,
+                password: document.getElementById('userPass').value,
+                role
+            })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            window.location.href = '/report';
         } else {
-            window.location.href = "report.html"; // Redirect to Report Form
+            alert(data.error || 'Signup failed');
         }
     });
 });
