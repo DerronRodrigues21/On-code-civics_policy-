@@ -32,7 +32,7 @@ app.get('/map', (req, res) => res.render('map'));
 app.post('/report/classify', async (req, res) => {
     const { complaint, lat, lng } = req.body;
     try {
-        const pyRes = await fetch('http://localhost:8000/classify', {
+        const pyRes = await fetch('https://on-code-civics-policy.onrender.com/classify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ complaint })
